@@ -7,12 +7,19 @@ import TrendsArea from './components/TrendsArea'
 import Tweet from './components/Tweet'
 
 class App extends Component {
+  // constructor(props) {
+  //   super(props);
+
+  //   this.handleCriaTweet = this.handleCriaTweet.bind(this);
+  // }
+
   state = {
     novoTweet: '',
     listaTweets: []
   }
 
   handleCriaTweet = (evento) => {
+  // handleCriaTweet(evento) {
     evento.preventDefault();
 
     this.setState({
@@ -84,6 +91,10 @@ class App extends Component {
           <Dashboard posicao="centro">
             <Widget>
               <div className="tweetsArea">
+                {/* truthy */}
+                {!listaTweets.length && (
+                  <p>Twite alguma coisa! Vamos arranjar treta!</p>
+                )}
                 {listaTweets.map((tweet, index) => (
                   <Tweet
                     key={`${tweet}${index}`}
