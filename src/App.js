@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-import Cabecalho from './Cabecalho';
-import NavBar from './NavBar';
+import Cabecalho from './components/Cabecalho';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
@@ -13,23 +11,6 @@ function App() {
           links={['mensagens', 'notificações', 'coisas loucas']}
         />
       </Cabecalho>
-      
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Bem vindos ao curso de React!
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
     </Fragment>
   );
 }
