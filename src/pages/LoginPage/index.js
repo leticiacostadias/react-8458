@@ -1,10 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import Cabecalho from '../../components/Cabecalho'
 import Widget from '../../components/Widget'
+import If from '../../components/If';
 
 import './loginPage.css'
 
 class LoginPage extends Component {
+  state = {
+    errorMessage: ''
+  }
+
   // handleLogin() {} -> precisa de um bind
   handleLogin = (evento) => {
     evento.preventDefault();
@@ -29,7 +34,8 @@ class LoginPage extends Component {
         localStorage.setItem('token', data.token);
         this.props.history.push('/');
       } else {
-        console.log(data);
+        // console.log(data);
+        this.setState({ errorMessage: data.message });
       }
     }).catch(err => console.log(err));
   }
@@ -54,13 +60,17 @@ class LoginPage extends Component {
                   <label className="loginPage__label" htmlFor="senha">Senha</label>
                   <input ref="senha" className="loginPage__input" type="password" id="senha" name="senha" />
                 </div>
-                {/* <div className="loginPage__errorBox">
-                  Mensagem de erro!
-                </div> */}
+
+                <If cond={this.state.errorMessage}>
+                  <div className="loginPage__errorBox">
+                    {this.state.errorMessage}
+                  </div>
+                </If>
+
                 <div className="loginPage__inputWrap">
                   <button className="loginPage__btnLogin" type="submit">
                     Logar
-                                    </button>
+                  </button>
                 </div>
               </form>
             </Widget>
