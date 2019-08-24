@@ -7,6 +7,8 @@ import Widget from './../components/Widget'
 import TrendsArea from './../components/TrendsArea'
 import Tweet from './../components/Tweet'
 
+import { NotificacaoContext } from './../contexts/notificacao';
+
 class Home extends Component {
   // constructor(props) {
   //   super(props);
@@ -111,6 +113,13 @@ class Home extends Component {
             </Widget>
           </Dashboard>
         </div>
+        <NotificacaoContext.Consumer>
+          {mensagem => (
+            <div className="notificacaoMsg">
+              {mensagem}
+            </div>
+          )}
+        </NotificacaoContext.Consumer>
       </Fragment>
     );
   }
