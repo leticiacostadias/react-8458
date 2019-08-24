@@ -3,9 +3,13 @@ import Cabecalho from '../../components/Cabecalho'
 import Widget from '../../components/Widget'
 import If from '../../components/If';
 
+import { NotificacaoContext } from './../../contexts/notificacao';
+
 import './loginPage.css'
 
 class LoginPage extends Component {
+  static contextType = NotificacaoContext;
+
   state = {
     errorMessage: ''
   }
@@ -32,6 +36,7 @@ class LoginPage extends Component {
 
       if (resposta.ok) {
         localStorage.setItem('token', data.token);
+        this.context.setMensagem('Login efetuado com sucesso! Bem vindo!');
         this.props.history.push('/');
       } else {
         // console.log(data);
@@ -42,6 +47,7 @@ class LoginPage extends Component {
 
   render() {
     // console.log(this.props.history);
+    console.log(this.context);
 
     return (
       <Fragment>
