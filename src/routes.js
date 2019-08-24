@@ -22,7 +22,7 @@ const Roteamento = () => {
       {/* <Route path="/" component={Home} exact={true} /> */}
       <Route path="/login" component={Login} />
       <Route path="/trend/:trendId" component={Trend} />
-      <Route path="" component={NotFound} />
+      <Route path="*" component={NotFound} />
     </Switch>
   );
 };
