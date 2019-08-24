@@ -25,6 +25,10 @@ class Home extends Component {
   // handleCriaTweet(evento) {
     evento.preventDefault();
 
+    // fetch -> comunicação com API
+    // atualizar state com objeto de tweet
+    // adaptação da renderização de tweets
+
     this.setState({
       novoTweet: '',
       // spread operator
@@ -98,6 +102,7 @@ class Home extends Component {
                 {!listaTweets.length && (
                   <p>Twite alguma coisa! Vamos arranjar treta!</p>
                 )}
+                {/* adaptação da renderização de tweets */}
                 {listaTweets.map((tweet, index) => (
                   <Tweet
                     key={`${tweet}${index}`}
