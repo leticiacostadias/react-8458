@@ -25,15 +25,26 @@ class Home extends Component {
   // handleCriaTweet(evento) {
     evento.preventDefault();
 
+    const token = localStorage.getItem('token');
     // fetch -> comunicação com API
+    fetch(`https://api-twitelum.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        conteudo: this.state.novoTweet
+      })
+    }).then(async (response) => {
+      const tweetCriado = await response.json();
+
+      if (response.ok) {
+        // notificacao
+        this.setState({
+          novoTweet: '',
+          listaTweets: [tweetCriado, ...this.state.listaTweets]
+        });
+      }
+    }).catch(console.log);
     // atualizar state com objeto de tweet
     // adaptação da renderização de tweets
-
-    this.setState({
-      novoTweet: '',
-      // spread operator
-      listaTweets: [this.state.novoTweet, ...this.state.listaTweets],
-    });
   }
 
   novoTweetEstaValido() {
@@ -105,13 +116,13 @@ class Home extends Component {
                 {/* adaptação da renderização de tweets */}
                 {listaTweets.map((tweet, index) => (
                   <Tweet
-                    key={`${tweet}${index}`}
-                    nomeUsuario="Pereba Feliz"
-                    userName="perebinha"
-                    totalLikes={29}
-                    avatarUrl="https://bit.ly/2N8ZJee"
+                    key={tweet._id}
+                    nomeUsuario={`${tweet.usuario.nome} ${tweet.usuario.sobrenome}`}
+                    userName={tweet.usuario.login}
+                    totalLikes={tweet.totalLikes}
+                    avatarUrl={tweet.usuario.foto}
                   >
-                    {tweet}
+                    {tweet.conteudo}
                   </Tweet>
                 ))}
               </div>
