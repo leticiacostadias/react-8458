@@ -130,12 +130,15 @@ class Home extends Component {
                   <p>Twite alguma coisa! Vamos arranjar treta!</p>
                 )}
                 {/* adaptação da renderização de tweets */}
-                {listaTweets.map((tweet, index) => (
+                {listaTweets.map(tweet => (
                   <Tweet
                     key={tweet._id}
+                    id={tweet._id}
                     nomeUsuario={`${tweet.usuario.nome} ${tweet.usuario.sobrenome}`}
                     userName={tweet.usuario.login}
                     totalLikes={tweet.totalLikes}
+                    removivel={tweet.removivel}
+                    likeado={tweet.likeado}
                     avatarUrl={tweet.usuario.foto}
                   >
                     {tweet.conteudo}

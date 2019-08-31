@@ -7,10 +7,17 @@ export function criaTweet({ token, conteudo }) {
 
 export function listaTweets(token) {
   return fetch(`https://api-twitelum.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
+    .then(response => response.json());
+    // .then(data => {
+    //   console.log(data);
 
-      return data;
-    });
+    //   return data;
+    // });
+}
+
+export function curtirTweet({ token, tweetId }) {
+  return fetch(`https://api-twitelum.herokuapp.com/tweets/${tweetId}/like?X-AUTH-TOKEN=${token}`, {
+    method: 'POST'
+  }).then(response => response.json());
+  // }).then(response => { return response.json(); });
 }

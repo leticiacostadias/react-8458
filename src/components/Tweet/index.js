@@ -1,9 +1,39 @@
 import React, { Component } from 'react'
+import If from './../If';
 import './tweet.css'
 
+import * as TweetsService from '../../services/tweets';
+
 class Tweet extends Component {
+  state = {
+    likeado: this.props.likeado,
+    totalLikes: this.props.totalLikes
+  }
+
+  handleCurtir = () => {
+    const { likeado, totalLikes } = this.state;
+    const token = localStorage.getItem('token');
+    const tweetId = this.props.id;
+
+    TweetsService.curtirTweet({ token, tweetId })
+      .then(() => {
+        this.setState({
+          likeado: !likeado,
+          totalLikes: totalLikes + (likeado ? -1 : 1)
+        });
+      });
+  }
+
   render() {
-    const { avatarUrl, nomeUsuario, userName, children, totalLikes } = this.props;
+    const {
+      avatarUrl,
+      nomeUsuario,
+      userName,
+      children,
+      removivel,
+      // totalLikes
+    } = this.props;
+    const { totalLikes, likeado } = this.state;
 
     return (
       <article className="tweet">
@@ -16,8 +46,15 @@ class Tweet extends Component {
           <span>{children}</span>
         </p>
         <footer className="tweet__footer">
-          <button className="btn btn--clean">
-            <svg className="icon icon--small iconHeart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.5 47.5">
+          <button
+            className="btn btn--clean"
+            onClick={this.handleCurtir}
+          >
+            <svg
+              className={`icon icon--small iconHeart ${likeado ? 'iconHeart--active' : ''}`}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 47.5 47.5"
+            >
               <defs>
                 <clipPath id="a">
                   <path d="M0 38h38V0H0v38z"></path>
@@ -29,6 +66,13 @@ class Tweet extends Component {
             </svg>
             {totalLikes}
           </button>
+
+          {/* <If cond={removivel}> */}
+          {removivel && ( // truthy
+            <button className="btn btn--blue btn--remove">
+              X
+            </button>
+          )}
         </footer>
       </article>
     )
