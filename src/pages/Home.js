@@ -22,6 +22,28 @@ class Home extends Component {
     listaTweets: []
   }
 
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+
+    TweetsService.listaTweets(token)
+      .then((listaDeTweets) => {
+        this.setState({
+          listaTweets: listaDeTweets
+        });
+      })
+  }
+
+  // componentDidUpdate() {}
+
+  // componentDidMount() {
+  //   window.addEventListener('resize', this.handleResize);
+  //   // conexão com socket
+  // }
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.handleResize);
+  //   // desconectar socket
+  // }
+
   handleCriaTweet = (evento) => {
   // handleCriaTweet(evento) {
     evento.preventDefault();
