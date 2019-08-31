@@ -20,7 +20,8 @@ class Home extends Component {
 
   state = {
     novoTweet: '',
-    listaTweets: []
+    listaTweets: [],
+    tweetSelecionado: null
   }
 
   componentDidMount() {
@@ -64,6 +65,21 @@ class Home extends Component {
     }).catch(console.log);
   }
 
+  handleCloseModal = () => {
+    this.setState({
+      tweetSelecionado: null
+    })
+  }
+
+  onSelectTweet = (tweetId) => {
+    const tweetSelecionado = this.state.listaTweets
+      .find(tweet => tweet._id === tweetId);
+
+    this.setState({
+      tweetSelecionado
+    });
+  }
+
   onDeleteTweet = (tweetId) => {
     const { listaTweets } = this.state;
 
@@ -87,7 +103,7 @@ class Home extends Component {
 
   render() {
     // destructuring
-    const { novoTweet, listaTweets } = this.state;
+    const { novoTweet, listaTweets, tweetSelecionado } = this.state;
     // const [primeiroTweet, segundoTweet] = listaTweets;
 
     // const novoTweet = this.state.novoTweet;
@@ -151,6 +167,7 @@ class Home extends Component {
                     likeado={tweet.likeado}
                     avatarUrl={tweet.usuario.foto}
                     onDelete={this.onDeleteTweet}
+                    onSelect={this.onSelectTweet}
                   >
                     {tweet.conteudo}
                   </Tweet>
@@ -159,7 +176,12 @@ class Home extends Component {
             </Widget>
           </Dashboard>
         </div>
-        <Modal />
+        <Modal
+          isOpen={Boolean(tweetSelecionado)}
+          onClose={this.handleCloseModal}
+        >
+          <h1>eu sou a mensagem do modal</h1>
+        </Modal>
       </Fragment>
     );
   }

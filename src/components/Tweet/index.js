@@ -32,6 +32,15 @@ class Tweet extends Component {
       .then(() => onDelete(id));
   }
 
+  handleSelect = (evento) => {
+    const { id, onSelect } = this.props;
+    const clicouNoFooter = evento.target.closest('.tweet__footer');
+
+    if (onSelect && !clicouNoFooter) {
+      onSelect(id);
+    }
+  }
+
   render() {
     const {
       avatarUrl,
@@ -44,7 +53,7 @@ class Tweet extends Component {
     const { totalLikes, likeado } = this.state;
 
     return (
-      <article className="tweet">
+      <article className="tweet" onClick={this.handleSelect} >
         <div className="tweet__cabecalho">
           <img className="tweet__fotoUsuario" src={avatarUrl} alt="" />
           <span className="tweet__nomeUsuario">{nomeUsuario}</span>
