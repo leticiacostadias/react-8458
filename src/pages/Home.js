@@ -63,6 +63,15 @@ class Home extends Component {
     }).catch(console.log);
   }
 
+  onDeleteTweet = (tweetId) => {
+    const { listaTweets } = this.state;
+
+    this.setState({
+      listaTweets: listaTweets
+        .filter((tweet) => tweet._id !== tweetId)
+    });
+  }
+
   novoTweetEstaValido() {
     const novoTweetLength = this.state.novoTweet.length;
 
@@ -140,6 +149,7 @@ class Home extends Component {
                     removivel={tweet.removivel}
                     likeado={tweet.likeado}
                     avatarUrl={tweet.usuario.foto}
+                    onDelete={this.onDeleteTweet}
                   >
                     {tweet.conteudo}
                   </Tweet>

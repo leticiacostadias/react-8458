@@ -24,6 +24,14 @@ class Tweet extends Component {
       });
   }
 
+  handleDelete = () => {
+    const token = localStorage.getItem('token');
+    const { id, onDelete } = this.props;
+
+    TweetsService.deleteTweet({ token, tweetId: id })
+      .then(() => onDelete(id));
+  }
+
   render() {
     const {
       avatarUrl,
@@ -69,7 +77,11 @@ class Tweet extends Component {
 
           {/* <If cond={removivel}> */}
           {removivel && ( // truthy
-            <button className="btn btn--blue btn--remove">
+            <button
+              className="btn btn--blue btn--remove"
+              onClick={this.handleDelete}
+              // onClick={() => onDelete(id)}
+            >
               X
             </button>
           )}
