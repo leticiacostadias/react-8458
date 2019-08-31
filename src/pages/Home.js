@@ -8,6 +8,7 @@ import TrendsArea from './../components/TrendsArea'
 import Tweet from './../components/Tweet'
 
 // import { NotificacaoContext } from './../contexts/notificacao';
+import * as TweetsService from '../services/tweets';
 
 class Home extends Component {
   // constructor(props) {
@@ -26,25 +27,18 @@ class Home extends Component {
     evento.preventDefault();
 
     const token = localStorage.getItem('token');
-    // fetch -> comunicação com API
-    fetch(`https://api-twitelum.herokuapp.com/tweets?X-AUTH-TOKEN=${token}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        conteudo: this.state.novoTweet
-      })
-    }).then(async (response) => {
-      const tweetCriado = await response.json();
 
-      if (response.ok) {
-        // notificacao
-        this.setState({
-          novoTweet: '',
-          listaTweets: [tweetCriado, ...this.state.listaTweets]
-        });
-      }
+    TweetsService.criaTweet({
+      token,
+      conteudo: this.state.novoTweet
+    }).then((tweetCriado) => {
+      // atualizar state com objeto de tweet
+      // adaptação da renderização de tweets
+      this.setState({
+        novoTweet: '',
+        listaTweets: [tweetCriado, ...this.state.listaTweets]
+      });
     }).catch(console.log);
-    // atualizar state com objeto de tweet
-    // adaptação da renderização de tweets
   }
 
   novoTweetEstaValido() {
