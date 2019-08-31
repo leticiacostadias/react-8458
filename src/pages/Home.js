@@ -180,7 +180,20 @@ class Home extends Component {
           isOpen={Boolean(tweetSelecionado)}
           onClose={this.handleCloseModal}
         >
-          <h1>eu sou a mensagem do modal</h1>
+          {tweetSelecionado && (
+            <Tweet
+              id={tweetSelecionado._id}
+              nomeUsuario={`${tweetSelecionado.usuario.nome} ${tweetSelecionado.usuario.sobrenome}`}
+              userName={tweetSelecionado.usuario.login}
+              totalLikes={tweetSelecionado.totalLikes}
+              removivel={tweetSelecionado.removivel}
+              likeado={tweetSelecionado.likeado}
+              avatarUrl={tweetSelecionado.usuario.foto}
+              onDelete={this.onDeleteTweetSelecionado}
+            >
+              {tweetSelecionado.conteudo}
+            </Tweet>
+          )}
         </Modal>
       </Fragment>
     );
