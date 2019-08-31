@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import If from './../If';
+// import If from './../If';
 import './tweet.css'
 
 import * as TweetsService from '../../services/tweets';
