@@ -42,6 +42,12 @@ function tweetsReducer (store = stateInicial, action) {
         lista: action.listaDeTweets
       };
 
+    case 'tweets/novoTweet':
+      return {
+        ...store,
+        lista: [action.tweetCriado, ...store.lista]
+      };
+
     default:
       return store;
   }

@@ -66,9 +66,11 @@ class Home extends Component {
     }).then((tweetCriado) => {
       // atualizar state com objeto de tweet
       // adaptação da renderização de tweets
-      this.setState({
-        novoTweet: '',
-        listaTweets: [tweetCriado, ...this.state.listaTweets]
+
+      this.setState({ novoTweet: '' });
+      this.props.dispatch({
+        type: 'tweets/novoTweet',
+        tweetCriado
       });
     }).catch(console.log);
   }

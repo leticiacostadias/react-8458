@@ -37,12 +37,12 @@ function reducer (state, action) {
 ```
 
 ```js
-  // components/
+  // components/MeuComponent
   import { connect } from 'react-redux';
 
   .
   .
   .
 
-  export default connect()(Component);
+  export default connect()(MeuComponent);
 ```
