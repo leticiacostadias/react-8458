@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
 
 // trata ação do usuário
 // function reducer (store = {}, action) {
@@ -53,7 +54,10 @@ function tweetsReducer (store = stateInicial, action) {
   }
 }
 
-const store = createStore(tweetsReducer);
+const store = createStore(
+  tweetsReducer,
+  applyMiddleware(reduxThunk)
+);
 
 // window.store = store;
 
