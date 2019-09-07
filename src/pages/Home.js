@@ -10,7 +10,7 @@ import TrendsArea from './../components/TrendsArea'
 import Tweet from './../components/Tweet'
 
 // import { NotificacaoContext } from './../contexts/notificacao';
-import * as TweetsService from '../services/tweets';
+// import * as TweetsService from '../services/tweets';
 import * as TweetsActions from '../actions/tweets';
 
 class Home extends Component {
@@ -46,21 +46,12 @@ class Home extends Component {
   // handleCriaTweet(evento) {
     evento.preventDefault();
 
-    const token = localStorage.getItem('token');
-
-    TweetsService.criaTweet({
-      token,
-      conteudo: this.state.novoTweet
-    }).then((tweetCriado) => {
-      // atualizar state com objeto de tweet
-      // adaptação da renderização de tweets
-
-      this.setState({ novoTweet: '' });
-      this.props.dispatch({
-        type: 'tweets/novoTweet',
-        tweetCriado
-      });
-    }).catch(console.log);
+    // const token = localStorage.getItem('token');
+    const { novoTweet } = this.state;
+    const { dispatch } = this.props;
+    
+    dispatch(TweetsActions.criaTweet(novoTweet))
+      .then(() => this.setState({ novoTweet: '' }));
   }
 
   handleCloseModal = () => {
@@ -79,12 +70,9 @@ class Home extends Component {
   }
 
   onDeleteTweet = (tweetId) => {
-    const { listaTweets } = this.state;
+    const { dispatch } = this.props;
 
-    this.setState({
-      listaTweets: listaTweets
-        .filter((tweet) => tweet._id !== tweetId)
-    });
+    dispatch(TweetsActions.deletaTweet(tweetId));
   }
 
   novoTweetEstaValido() {
@@ -190,7 +178,7 @@ class Home extends Component {
               removivel={tweetSelecionado.removivel}
               likeado={tweetSelecionado.likeado}
               avatarUrl={tweetSelecionado.usuario.foto}
-              onDelete={this.onDeleteTweetSelecionado}
+              onDelete={this.onDeleteTweet}
             >
               {tweetSelecionado.conteudo}
             </Tweet>

@@ -48,6 +48,14 @@ function tweetsReducer (store = stateInicial, action) {
         ...store,
         lista: [action.tweetCriado, ...store.lista]
       };
+      
+    case 'tweets/apaga':
+      return {
+        ...store,
+        lista: store.lista
+          .filter(tweet => tweet._id !== action.tweetId)
+      };
+  
 
     default:
       return store;

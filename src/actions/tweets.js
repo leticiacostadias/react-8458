@@ -1,10 +1,8 @@
 import * as TweetsService from '../services/tweets';
 
 export function listaTweets () {
-  const token = localStorage.getItem('token');
-
   return dispatch => TweetsService
-    .listaTweets(token)
+    .listaTweets()
     .then((listaDeTweets) => {
       dispatch({
         type: 'tweets/atualizaLista',
@@ -13,3 +11,24 @@ export function listaTweets () {
     });
 }
 
+export function criaTweet (conteudo) {
+  return dispatch => TweetsService
+    .criaTweet(conteudo)
+    .then((tweetCriado) => {
+      dispatch({
+        type: 'tweets/novoTweet',
+        tweetCriado
+      });
+    });
+}
+
+export function deletaTweet (tweetId) {
+  return dispatch => TweetsService
+    .deleteTweet({ tweetId })
+    .then(() => {
+      dispatch({
+        type: 'tweets/apaga',
+        tweetId
+      });
+    })
+}
