@@ -11,7 +11,7 @@ import Tweet from './../components/Tweet'
 
 // import { NotificacaoContext } from './../contexts/notificacao';
 // import * as TweetsService from '../services/tweets';
-import * as TweetsActions from '../actions/tweets';
+import { actions as TweetsActions } from '../ducks/tweets';
 
 class Home extends Component {
   // constructor(props) {
@@ -192,7 +192,7 @@ class Home extends Component {
 function mapStateToProps (stateDaStore) {
   return {
     // nomeDaProp: stateDaStore
-    listaDaStore: stateDaStore.lista
+    listaDaStore: stateDaStore.tweets.lista
   };
 }
 
