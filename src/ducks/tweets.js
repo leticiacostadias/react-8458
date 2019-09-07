@@ -3,7 +3,10 @@ import * as TweetsService from '../services/tweets';
 const actionTypes = {
   atualizaLista: 'tweets/atualizaLista',
   novo: 'tweets/novoTweet',
-  delete: 'tweets/apaga'
+  delete: 'tweets/apaga',
+  seleciona: 'tweets/seleciona',
+  limpaSelecao: 'tweets/limpaSelecao',
+  likeTweet: 'tweets/likeTweet'
 };
 
 export const actions = {
@@ -28,13 +31,34 @@ export const actions = {
       .then(() => dispatch({
         type: actionTypes.delete,
         tweetId
-      }))
+      }));
+  },
+
+  curtirTweet (tweetId) {
+    return dispatch => TweetsService.curtirTweet({ tweetId })
+      .then(() => dispatch({
+        type: actionTypes.likeTweet,
+        tweetId
+      }));
+  },
+
+  selecionaTweet (tweetId) {
+    return {
+      type: actionTypes.seleciona,
+      tweetId
+    };
+  },
+
+  limpaSelecao () {
+    return {
+      type: actionTypes.limpaSelecao
+    };
   }
 };
 
 export const stateInicial = {
   lista: [],
-  tweetSelecionado: ''
+  tweetSelecionado: null // tweetId
 };
 
 export const reduceHandler = {
@@ -58,6 +82,36 @@ export const reduceHandler = {
       ...store,
       lista: store.lista
         .filter(tweet => tweet._id !== tweetId)
+    };
+  },
+
+  [actionTypes.likeTweet]: (store, { tweetId }) => {
+    const tweetCurtido = store.lista
+      .find(tweet => tweet._id === tweetId);
+    
+    if (tweetCurtido) {
+      tweetCurtido.totalLike += tweetCurtido.likeado ? -1 : 1; 
+      tweetCurtido.likeado = !tweetCurtido.likeado;
+    }
+
+    return {
+      ...store,
+      lista: [...store.lista]
+    };
+  },
+
+  // [actionTypes.seleciona]: (store, action) => {
+  [actionTypes.seleciona]: (store, { tweetId }) => {
+    return {
+      ...store,
+      tweetSelecionado: tweetId
+    }
+  },
+
+  [actionTypes.limpaSelecao]: (store) => {
+    return {
+      ...store,
+      tweetSelecionado: ''
     };
   }
 };

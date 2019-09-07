@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import If from './../If';
 import './tweet.css';
 
-import * as TweetsService from '../../services/tweets';
+// import * as TweetsService from '../../services/tweets';
 
 class Tweet extends Component {
   static propTypes = {
@@ -17,6 +17,7 @@ class Tweet extends Component {
     likeado: PropTypes.bool,
     removivel: PropTypes.bool,
     onDelete: PropTypes.func,
+    onCurtir: PropTypes.func,
     onSelect: PropTypes.func,
   }
   
@@ -25,26 +26,28 @@ class Tweet extends Component {
     likeado: false,
     removivel: false,
     onDelete: () => {},
+    onCurtir: () => {},
     onSelect: null
   }
 
-  state = {
-    likeado: this.props.likeado,
-    totalLikes: this.props.totalLikes
-  }
+  // state = {
+  //   likeado: this.props.likeado,
+  //   totalLikes: this.props.totalLikes
+  // }
 
   handleCurtir = () => {
-    const { likeado, totalLikes } = this.state;
-    const token = localStorage.getItem('token');
-    const tweetId = this.props.id;
+    // const { likeado, totalLikes } = this.state;
+    const { id, onCurtir } = this.props;
 
-    TweetsService.curtirTweet({ token, tweetId })
-      .then(() => {
-        this.setState({
-          likeado: !likeado,
-          totalLikes: totalLikes + (likeado ? -1 : 1)
-        });
-      });
+    onCurtir(id);
+
+    // TweetsService.curtirTweet({ tweetId })
+    //   .then(() => {
+    //     this.setState({
+    //       likeado: !likeado,
+    //       totalLikes: totalLikes + (likeado ? -1 : 1)
+    //     });
+    //   });
   }
 
   handleDelete = () => {
@@ -69,9 +72,10 @@ class Tweet extends Component {
       userName,
       children,
       removivel,
-      // totalLikes
+      totalLikes,
+      likeado
     } = this.props;
-    const { totalLikes, likeado } = this.state;
+    // const { totalLikes, likeado } = this.state;
 
     return (
       <article className="tweet" onClick={this.handleSelect} >
