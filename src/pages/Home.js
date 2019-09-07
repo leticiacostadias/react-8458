@@ -27,7 +27,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(TweetsActions.listaTweets());
+    this.props.dispatch(TweetsActions.listaTweets())
+      .then(() => { console.log('dispatch finalizado'); });
   }
 
   // componentDidUpdate() {}
