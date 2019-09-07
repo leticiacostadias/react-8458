@@ -49,4 +49,6 @@ function tweetsReducer (store = stateInicial, action) {
 
 const store = createStore(tweetsReducer);
 
-window.store = store;
+// window.store = store;
+
+export default store;

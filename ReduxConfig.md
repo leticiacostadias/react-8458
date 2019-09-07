@@ -1,7 +1,11 @@
 # Configurando o Redux
 
 ## Instalações
+
+`npm install --save redux react-redux`
+
 - redux
+- react-redux
 
 ## 1 - Criar a store
 
@@ -21,4 +25,24 @@ function reducer (state, action) {
 
   return state;
 }
+```
+
+## 3 - Conectar o react com o redux
+
+```js
+  // src/index.js
+  <Provider store={store} >
+    <App />
+  </Provider>
+```
+
+```js
+  // components/
+  import { connect } from 'react-redux';
+
+  .
+  .
+  .
+
+  export default connect()(Component);
 ```
