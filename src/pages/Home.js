@@ -29,6 +29,12 @@ class Home extends Component {
 
     TweetsService.listaTweets(token)
       .then((listaDeTweets) => {
+        window.store.dispatch({
+          type: 'tweets/atualizaLista',
+          // listaDeTweets: listaDeTweets
+          listaDeTweets
+        });
+
         this.setState({
           listaTweets: listaDeTweets
         });

@@ -20,6 +20,8 @@ import Rotas from './routes';
 
 import { NotificacaoProvider } from './contexts/notificacao';
 
+import './store';
+
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
